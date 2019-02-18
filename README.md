@@ -1,3 +1,3 @@
-### Online Veggie Store
+# Online Veggie Store
 
 Fresh and healthy produce is just a click away!
