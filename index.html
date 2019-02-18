@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=§, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
@@ -13,28 +14,41 @@
       <div class="product">
         <div class="product-info">
           <h2 v-show="onSale">On Sale!</h2>
-          <h1>{{ product }}</h1>
+          <h1>{{ title }}</h1>
           <h2>{{ description }}</h2>
 
-          <p v-if="inventory > 10">In stock</p>
-          <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
-          <p v-else="inventory = 0">Out of stock</p>
-
-          <div v-for="variant in variants" :key="variant.variantID">
-            <p @mouseover="updateProduct(variant.variantImage)">
-              {{ variant.variantCaliber }}
-            </p>
-          </div>
+          <p v-if="inStock">In stock</p>
+          <p v-else="!inStock">Out of stock</p>
 
           <div class="image">
             <img :src="image" :alt="altText" />
           </div>
 
+          <div
+            class="color-box"
+            v-for="variant in variants"
+            :key="variant.variantID"
+            :style="{ backgroundColor: variant.variantColor }"
+            @mouseover="updateProduct(variant.variantImage)"
+          ></div>
+
           <div class="cart">
             <p>Cart ({{ cart }})</p>
           </div>
-          <button @click="addToCart">Add to cart</button>
-          <button @click="removeFromCart">Remove from cart</button>
+          <button
+            @click="addToCart"
+            :disabled="!inStock"
+            :class="{ disabledButton: !inStock }"
+          >
+            Add to cart
+          </button>
+          <button
+            @click="removeFromCart"
+            :disabled="!inStock"
+            :class="{ disabledButton: !inStock }"
+          >
+            Remove from cart
+          </button>
 
           <ul>
             <li v-for="details in details">{{ details }}</li>

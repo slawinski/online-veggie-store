@@ -1,28 +1,29 @@
 var app = new Vue({
   el: "#app",
   data: {
-    product: "Aubergine",
-    description: "Tastiest aubergines on the market!",
-    image: "./eggplant-128px.png",
-    altText: "Aubergines",
-    inventory: 5,
+    product: "Bell Pepper",
+    type: "Genetically modified",
+    description: "Tastiest bell peppers on the market!",
+    image: "./bell-pepper-red.png",
+    altText: "Bell peppers",
+    inStock: true,
     onSale: false,
     details: ["Firm", "Fresh", "Healthy"],
     variants: [
       {
         variantID: 123,
-        variantCaliber: "Large",
-        variantImage: "./eggplant-256px.png"
+        variantColor: "yellow",
+        variantImage: "./bell-pepper-yellow.png"
       },
       {
         variantID: 124,
-        variantCaliber: "Medium",
-        variantImage: "./eggplant-128px.png"
+        variantColor: "red",
+        variantImage: "./bell-pepper-red.png"
       },
       {
         variantID: 125,
-        variantCaliber: "Small",
-        variantImage: "./eggplant-64px.png"
+        variantColor: "green",
+        variantImage: "./bell-pepper-green.png"
       }
     ],
     cart: 0
@@ -36,6 +37,11 @@ var app = new Vue({
     },
     updateProduct(variantImage) {
       this.image = variantImage;
+    }
+  },
+  computed: {
+    title() {
+      return this.type + " " + this.product;
     }
   }
 });
