@@ -10,8 +10,37 @@
   </head>
   <body>
     <div id="app">
-      <h1>{{ product }}</h1>
-      <h2>{{ description }}</h2>
+      <div class="product">
+        <div class="product-info">
+          <h2 v-show="onSale">On Sale!</h2>
+          <h1>{{ product }}</h1>
+          <h2>{{ description }}</h2>
+
+          <p v-if="inventory > 10">In stock</p>
+          <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+          <p v-else="inventory = 0">Out of stock</p>
+
+          <div v-for="variant in variants" :key="variant.variantID">
+            <p @mouseover="updateProduct(variant.variantImage)">
+              {{ variant.variantCaliber }}
+            </p>
+          </div>
+
+          <div class="image">
+            <img :src="image" :alt="altText" />
+          </div>
+
+          <div class="cart">
+            <p>Cart ({{ cart }})</p>
+          </div>
+          <button @click="addToCart">Add to cart</button>
+          <button @click="removeFromCart">Remove from cart</button>
+
+          <ul>
+            <li v-for="details in details">{{ details }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div>
