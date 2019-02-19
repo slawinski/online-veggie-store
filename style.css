@@ -1,5 +1,16 @@
+.product {
+  display: flex;
+}
+.color-box-wrapper {
+  display: flex;
+}
 .color-box {
   width: 40px;
   height: 40px;
-  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.image {
+  display: flex;
+  align-items: center;
 }
