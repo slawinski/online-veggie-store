@@ -11,7 +11,6 @@ Vue.component("product", {
       <img :src="image" :alt="altText" />
     </div>
     <div class="product-info">
-      <!-- <h2 v-show="onSale">On Sale!</h2> -->
       <h1>{{ title }} <span v-show="onSale">On Sale!</span></h1>
       <h2>{{ description }}</h2>
 
@@ -25,10 +24,6 @@ Vue.component("product", {
           :style="{ backgroundColor: variant.variantColor }"
           @mouseover="updateProduct(index)"
         ></div>
-      </div>
-
-      <div class="cart">
-        <p>Cart ({{ cart }})</p>
       </div>
       <button
         @click="addToCart"
@@ -81,16 +76,18 @@ Vue.component("product", {
           variantQuantity: 5,
           onSale: true
         }
-      ],
-      cart: 0
+      ]
     };
   },
   methods: {
     addToCart() {
-      this.cart += 1;
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
     },
     removeFromCart() {
-      this.cart -= 1;
+      this.$emit(
+        "remove-from-cart",
+        this.variants[this.selectedVariant].variantId
+      );
     },
     updateProduct(index) {
       this.selectedVariant = index;
@@ -122,6 +119,15 @@ Vue.component("product", {
 var app = new Vue({
   el: "#app",
   data: {
-    premium: true
+    premium: false,
+    cart: []
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id);
+    },
+    updateCartNegatively(id) {
+      this.cart.pop(id);
+    }
   }
 });

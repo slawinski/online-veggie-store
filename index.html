@@ -11,7 +11,10 @@
   </head>
   <body>
     <div id="app">
-      <product :premium="premium"></product>
+      <product :premium="premium" @add-to-cart="updateCart" @remove-from-cart="updateCartNegatively"></product>
+      <div class="cart">
+        <p>Cart ({{ cart.length }})</p>
+      </div>
     </div>
 
     <div class-"disclaimer">
