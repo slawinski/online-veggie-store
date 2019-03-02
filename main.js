@@ -1,3 +1,5 @@
+var eventBus = new Vue();
+
 Vue.component("product", {
   props: {
     premium: {
@@ -45,17 +47,9 @@ Vue.component("product", {
       </ul>
       <div>
       <h2>Reviews</h2>
-      <p v-if="!reviews.length">There are no reviews yet.</p>
-      <ul>
-        <li v-for="review in reviews">
-        <p>{{ review.name }}</p>
-        <p>Rating: {{ review.rating }}</p>
-        <p>{{ review.review }}</p>
-        <p>Is product recommended? {{ review.recommendation }}</p>
-        </li>
-      </ul>
+      <product-tabs :reviews="reviews"></product-tabs>
      </div>
-      <product-review @review-submitted="addReview"></product-review>
+
     </div>
   </div>
   `,
@@ -105,9 +99,6 @@ Vue.component("product", {
     },
     updateProduct(index) {
       this.selectedVariant = index;
-    },
-    addReview(productReview) {
-      this.reviews.push(productReview);
     }
   },
   computed: {
@@ -130,6 +121,11 @@ Vue.component("product", {
         return 2.99;
       }
     }
+  },
+  mounted() {
+    eventBus.$on("review-submitted", productReview => {
+      this.reviews.push(productReview);
+    });
   }
 });
 
@@ -148,8 +144,8 @@ Vue.component("product-review", {
 
   <p>
     <label for="recommendation">Do you recommend this product:</label>
-    <input type="radio" id="recommendation" v-model="recommendation" value="yes"> Yes
-    <input type="radio" id="recommendation" v-model="recommendation" value="no"> No
+    <input type="radio" id="recommendation" v-model="recommendation" value="Yes"> Yes
+    <input type="radio" id="recommendation" v-model="recommendation" value="No"> No
   </p>
 
   <p>
@@ -193,7 +189,7 @@ Vue.component("product-review", {
           rating: this.rating,
           recommendation: this.recommendation
         };
-        this.$emit("review-submitted", productReview);
+        eventBus.$emit("review-submitted", productReview);
         this.name = null;
         this.review = null;
         this.rating = null;
@@ -205,6 +201,46 @@ Vue.component("product-review", {
         if (!this.recommendation) this.errors.push("Recommendation required.");
       }
     }
+  }
+});
+
+Vue.component("product-tabs", {
+  props: {
+    reviews: {
+      type: Array,
+      required: false
+    }
+  },
+  template: `
+    <div>
+      <div>
+        <span class="tab"
+          :class="{ activeTab: selectedTab === tab }"
+          v-for="(tab, index) in tabs"
+          @click="selectedTab = tab"
+        >{{ tab }}</span>
+      </div>
+      <div v-show="selectedTab === 'Reviews'">
+        <p v-if="!reviews.length">There are no reviews yet.</p>
+        <ul>
+          <li v-for="review in reviews">
+          <p>{{ review.name }}</p>
+          <p>Rating: {{ review.rating }}</p>
+          <p>{{ review.review }}</p>
+          <p>Is product recommended? {{ review.recommendation }}</p>
+          </li>
+        </ul>
+      </div>
+      <div v-show="selectedTab === 'Make a Review'">
+        <product-review></product-review>
+      </div>
+    </div>
+  `,
+  data() {
+    return {
+      tabs: ["Reviews", "Make a Review"],
+      selectedTab: "Reviews" // set from @click
+    };
   }
 });
 
