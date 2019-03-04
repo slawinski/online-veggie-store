@@ -72,21 +72,21 @@ export default {
         {
           variantID: 123,
           variantColor: "yellow",
-          variantImage: "../assets/bell-pepper-yellow.png",
+          variantImage: require("../assets/bell-pepper-yellow.png"),
           variantQuantity: 10,
           onSale: false
         },
         {
           variantID: 124,
           variantColor: "red",
-          variantImage: "../assets/bell-pepper-red.png",
+          variantImage: require("../assets/bell-pepper-red.png"),
           variantQuantity: 0,
           onSale: false
         },
         {
           variantID: 125,
           variantColor: "green",
-          variantImage: "../assets/bell-pepper-green.png",
+          variantImage: require("../assets/bell-pepper-green.png"),
           variantQuantity: 5,
           onSale: true
         }
