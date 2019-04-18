@@ -6,7 +6,6 @@
     <div class="product-info">
       <h1>{{ title }} <span v-show="onSale">On Sale!</span></h1>
       <h2>{{ description }}</h2>
-
       <p v-if="inStock">In stock</p>
       <p v-else>Out of stock</p>
       <div class="color-box-wrapper">
@@ -15,7 +14,7 @@
           v-for="(variant, index) in variants"
           :key="variant.variantID"
           :style="{ backgroundColor: variant.variantColor }"
-          @mouseover="updateProduct(index)"
+          @click="updateProduct(index)"
         ></div>
       </div>
       <button
@@ -71,21 +70,21 @@ export default {
       variants: [
         {
           variantID: 123,
-          variantColor: "yellow",
+          variantColor: "Yellow",
           variantImage: require("../assets/bell-pepper-yellow.png"),
           variantQuantity: 10,
           onSale: false
         },
         {
           variantID: 124,
-          variantColor: "red",
+          variantColor: "Red",
           variantImage: require("../assets/bell-pepper-red.png"),
           variantQuantity: 0,
           onSale: false
         },
         {
           variantID: 125,
-          variantColor: "green",
+          variantColor: "Green",
           variantImage: require("../assets/bell-pepper-green.png"),
           variantQuantity: 5,
           onSale: true
@@ -109,7 +108,9 @@ export default {
   },
   computed: {
     title() {
-      return this.type + " " + this.product;
+      return (
+        this.variants[this.selectedVariant].variantColor + " " + this.product
+      );
     },
     image() {
       return this.variants[this.selectedVariant].variantImage;
