@@ -13,18 +13,22 @@ export default new Vuex.Store({
         recommendation: null,
         errors: []
       }
-    ]
+    ],
+    cart: []
   },
   getters: {
+    cart: state => state.cart,
     reviews: state => state.reviews
   },
   mutations: {
+    addToCart: (state, payload) => {
+      state.cart.push(payload);
+    },
+    removeFromCart: (state, payload) => {
+      state.cart.pop(payload);
+    },
     addReview: (state, payload) => {
-      const review = {
-        review: payload,
-        completed: false
-      };
-      state.reviews.unshift(review);
+      state.reviews.unshift(payload);
     }
   },
   actions: {}

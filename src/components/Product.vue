@@ -92,12 +92,15 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
+      this.$store.commit(
+        "addToCart",
+        this.variants[this.selectedVariant].variantID
+      );
     },
     removeFromCart() {
-      this.$emit(
-        "remove-from-cart",
-        this.variants[this.selectedVariant].variantId
+      this.$store.commit(
+        "removeFromCart",
+        this.variants[this.selectedVariant].variantID
       );
     },
     updateProduct(index) {

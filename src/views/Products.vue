@@ -3,11 +3,7 @@
     <div class="cart">
       <p>Cart ({{ cart.length }})</p>
     </div>
-    <product
-      :premium="premium"
-      @add-to-cart="updateCart"
-      @remove-from-cart="updateCartNegatively"
-    ></product>
+    <product :premium="premium"></product>
   </div>
 </template>
 
@@ -18,19 +14,15 @@ export default {
   components: {
     Product
   },
+  computed: {
+    cart: function() {
+      return this.$store.getters.cart;
+    }
+  },
   data() {
     return {
-      premium: false,
-      cart: []
+      premium: false
     };
-  },
-  methods: {
-    updateCart(id) {
-      this.cart.push(id);
-    },
-    updateCartNegatively(id) {
-      this.cart.pop(id);
-    }
   }
 };
 </script>
