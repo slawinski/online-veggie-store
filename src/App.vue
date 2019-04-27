@@ -11,12 +11,14 @@
 
 <script>
 import Disclaimer from "./components/Disclaimer";
+import store from "./store";
 
 export default {
   name: "app",
   components: {
     Disclaimer
-  }
+  },
+  store: store
 };
 </script>
 

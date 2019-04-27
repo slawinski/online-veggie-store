@@ -14,10 +14,7 @@
       <p v-if="!reviews.length">There are no reviews yet.</p>
       <ul>
         <li v-for="review in reviews" :key="review.index">
-          <p>{{ review.name }}</p>
-          <p>Rating: {{ review.rating }}</p>
           <p>{{ review.review }}</p>
-          <p>Is product recommended? {{ review.recommendation }}</p>
         </li>
       </ul>
     </div>
@@ -32,10 +29,9 @@ import ProductReview from "../components/ProductReview";
 export default {
   name: "product-tab",
   components: { ProductReview },
-  props: {
-    reviews: {
-      type: Array,
-      required: false
+  computed: {
+    reviews: function() {
+      return this.$store.getters.reviews;
     }
   },
   data() {

@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-export const eventBus = new Vue();
 import ProductTabs from "../components/ProductTabs";
 export default {
   name: "Product",
@@ -128,11 +126,6 @@ export default {
         return 2.99;
       }
     }
-  },
-  mounted() {
-    eventBus.$on("review-submitted", productReview => {
-      this.reviews.push(productReview);
-    });
   }
 };
 </script>

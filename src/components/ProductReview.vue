@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-export const eventBus = new Vue();
 export default {
   name: "ProductReview",
   data() {
@@ -75,7 +73,7 @@ export default {
           rating: this.rating,
           recommendation: this.recommendation
         };
-        eventBus.$emit("review-submitted", productReview);
+        this.$store.commit("addReview", productReview);
         this.name = null;
         this.review = null;
         this.rating = null;
