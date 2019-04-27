@@ -1,11 +1,15 @@
 <template>
   <div class="product">
-    <div class="image">
-      <img :src="image" :alt="altText" />
+    <div class="header">
+      <div class="image">
+        <img :src="image" :alt="altText" />
+      </div>
+      <div class="title">
+        <h1>{{ title }} <span v-show="onSale">On Sale!</span></h1>
+        <h2>{{ description }}</h2>
+      </div>
     </div>
-    <div class="product-info">
-      <h1>{{ title }} <span v-show="onSale">On Sale!</span></h1>
-      <h2>{{ description }}</h2>
+    <div class="info">
       <p v-if="inStock">In stock</p>
       <p v-else>Out of stock</p>
       <div class="color-box-wrapper">
@@ -141,5 +145,12 @@ export default {
   width: 40px;
   height: 40px;
   margin-right: 5px;
+}
+.image > img {
+  height: 105px;
+}
+.header {
+  display: flex;
+  align-items: center;
 }
 </style>
