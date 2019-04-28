@@ -148,6 +148,7 @@ export default {
 }
 .image > img {
   height: 105px;
+  width: 105px;
 }
 .header {
   display: flex;
