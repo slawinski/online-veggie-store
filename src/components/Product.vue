@@ -21,20 +21,20 @@
           @click="updateProduct(index)"
         ></div>
       </div>
-      <button
+      <q-btn
         @click="addToCart"
         :disabled="!inStock"
         :class="{ disabledButton: !inStock }"
       >
         Add to cart
-      </button>
-      <button
+      </q-btn>
+      <q-btn
         @click="removeFromCart"
         :disabled="!inStock"
         :class="{ disabledButton: !inStock }"
       >
         Remove from cart
-      </button>
+      </q-btn>
       <p>Shipping: {{ shipping }}</p>
       <ul>
         <li v-for="detail in details" :key="detail.index">{{ detail }}</li>
