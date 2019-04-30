@@ -3,25 +3,33 @@
     <div id="nav" class="nav">
       <div class="links">
         <router-link :to="{ name: 'home' }">Home</router-link> |
-        <router-link :to="{ name: 'products' }">Products</router-link>
+        <router-link :to="{ name: 'shop' }">Shop</router-link> |
+        <router-link :to="{ name: 'about' }">About</router-link>
       </div>
-      <Cart></Cart>
+      <div class="title">
+        <p>Online Veggie Store</p>
+      </div>
+      <cart></cart>
     </div>
-    <router-view></router-view>
-    <Disclaimer></Disclaimer>
+    <div class="container">
+      <router-view></router-view>
+    </div>
+    <footer class="footer">
+      <app-footer></app-footer>
+    </footer>
   </div>
 </template>
 
 <script>
-import Cart from "./components/Cart";
-import Disclaimer from "./components/Disclaimer";
 import store from "./store";
+import Cart from "./components/Cart";
+import AppFooter from "./components/AppFooter";
 
 export default {
   name: "app",
   components: {
     Cart,
-    Disclaimer
+    AppFooter
   },
   computed: {
     cart: function() {
@@ -37,5 +45,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid darkgray;
 }
 </style>

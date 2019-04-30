@@ -1,6 +1,8 @@
 <template>
   <div class="cart">
-    <p>Cart ({{ cart.length }})</p>
+    <p>
+      <span><b-icon icon="cart"> </b-icon></span> ({{ cart.length }})
+    </p>
   </div>
 </template>
 
