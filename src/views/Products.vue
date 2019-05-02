@@ -1,15 +1,21 @@
 <template>
   <div class="products">
-    <div class="productsItemContainer" v-for="product in products">
-      <div class="productsItem">
-        <div class="image is-128x128">
-          <img
-            :src="require(`@/${product.variants[0].variantImage}`)"
-            :alt="product.altText"
-          />
-        </div>
-        <p>{{ product.name }}</p>
-      </div>
+    <div
+      class="productsItemContainer"
+      v-for="product in products"
+      :key="product.name"
+    >
+      <a :href="product.productID">
+        <div class="productsItem">
+          <div class="image is-128x128">
+            <img
+              :src="require(`@/${product.variants[0].variantImage}`)"
+              :alt="product.altText"
+            />
+          </div>
+          <p>{{ product.name }}</p>
+        </div></a
+      >
     </div>
   </div>
 </template>
@@ -24,10 +30,13 @@ export default {
       premium: false
     };
   },
-  mounted() {
-    axios.get("/db.json").then(response => {
+  async mounted() {
+    try {
+      const response = await axios.get("/db.json");
       this.products = response.data.products;
-    });
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
 </script>
