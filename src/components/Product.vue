@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import json from "../../public/db";
 import ProductTabs from "../components/ProductTabs";
 export default {
   name: "Product",
@@ -62,36 +63,7 @@ export default {
   },
   data() {
     return {
-      product: "Bell Pepper",
-      type: "Genetically modified",
-      description: "Tastiest bell peppers on the market!",
-      selectedVariant: 0,
-      altText: "Bell peppers",
-      details: ["Firm", "Fresh", "Healthy"],
-      reviews: [],
-      variants: [
-        {
-          variantID: 123,
-          variantColor: "Yellow",
-          variantImage: require("../assets/bell-pepper-yellow.png"),
-          variantQuantity: 10,
-          onSale: false
-        },
-        {
-          variantID: 124,
-          variantColor: "Red",
-          variantImage: require("../assets/bell-pepper-red.png"),
-          variantQuantity: 0,
-          onSale: false
-        },
-        {
-          variantID: 125,
-          variantColor: "Green",
-          variantImage: require("../assets/bell-pepper-green.png"),
-          variantQuantity: 5,
-          onSale: true
-        }
-      ]
+      myJson: json
     };
   },
   methods: {

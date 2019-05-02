@@ -1,0 +1,66 @@
+{
+  "products": [
+    {
+      "name": "Bell Pepper",
+      "type": "Genetically modified",
+      "description": "Tastiest bell peppers on the market!",
+      "selectedVariant": 0,
+      "altText": "Bell pepper image",
+      "details": ["Firm", "Fresh", "Healthy"],
+      "variants": [
+        {
+          "variantID": 123,
+          "variantColor": "Yellow",
+          "variantImage": "assets/bell-pepper-yellow.png",
+          "variantQuantity": 10,
+          "onSale": false
+        },
+        {
+          "variantID": 124,
+          "variantColor": "Red",
+          "variantImage": "../assets/bell-pepper-red.png",
+          "variantQuantity": 0,
+          "onSale": false
+        },
+        {
+          "variantID": 125,
+          "variantColor": "Green",
+          "variantImage": "../assets/bell-pepper-green.png",
+          "variantQuantity": 5,
+          "onSale": true
+        }
+      ]
+    },
+    {
+      "name": "Broccoli",
+      "type": "Organically grown",
+      "description": "Tastiest broccoli on the market!",
+      "selectedVariant": 0,
+      "altText": "Broccoli image",
+      "details": ["Firm", "Fresh", "Healthy"],
+      "variants": [
+        {
+          "variantID": 123,
+          "variantColor": "green",
+          "variantImage": "assets/broccoli-green.png",
+          "variantQuantity": 10,
+          "onSale": false
+        },
+        {
+          "variantID": 124,
+          "variantColor": "darkgreen",
+          "variantImage": "../assets/broccoli-darkgreen.png",
+          "variantQuantity": 0,
+          "onSale": false
+        },
+        {
+          "variantID": 125,
+          "variantColor": "lightgreen",
+          "variantImage": "../assets/broccoli-lightgreen.png",
+          "variantQuantity": 5,
+          "onSale": true
+        }
+      ]
+    }
+  ]
+}
