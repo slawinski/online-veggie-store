@@ -1,12 +1,24 @@
 <template>
   <div class="product">
     <div class="header">
-      <div class="image">
-        <img :src="image" :alt="altText" />
+      <div class="image is-128x128">
+        <img
+          :src="
+            require(`@/${
+              this.product.product[0].variants[
+                this.product.product[0].selectedVariant
+              ].variantImage
+            }`)
+          "
+          :alt="product.product[0].altText"
+        />
       </div>
       <div class="title">
-        <h1>{{ title }} <span v-show="onSale">On Sale!</span></h1>
-        <h2>{{ description }}</h2>
+        <h1>
+          {{ title }}
+          <span v-show="onSale">On Sale!</span>
+        </h1>
+        <h2>{{ product.product[0].description }}</h2>
       </div>
     </div>
     <div class="info">
@@ -15,7 +27,7 @@
       <div class="color-box-wrapper">
         <div
           class="color-box"
-          v-for="(variant, index) in variants"
+          v-for="(variant, index) in product.product[0].variants"
           :key="variant.variantID"
           :style="{ backgroundColor: variant.variantColor }"
           @click="updateProduct(index)"
@@ -48,55 +60,78 @@
 </template>
 
 <script>
-import json from "../../public/db";
+import axios from "axios";
 import ProductTabs from "../components/ProductTabs";
+
 export default {
   name: "Product",
   components: {
     ProductTabs
   },
-  props: {
-    premium: {
-      type: Boolean,
-      required: true
-    }
-  },
   data() {
     return {
-      myJson: json
+      product: {}
     };
+  },
+  async created() {
+    try {
+      const response = await axios.get("/db.json");
+      const products = response.data;
+      const id = this.$route.params.productId;
+      const product = products.filter(obj => {
+        return obj.productID == id;
+      });
+      // this.product = product;
+      this.$set(this.product, "product", product);
+    } catch (err) {
+      console.error(err);
+    }
   },
   methods: {
     addToCart() {
       this.$store.commit(
         "addToCart",
-        this.variants[this.selectedVariant].variantID
+        this.product.product[0].variants[
+          this.product.product[0].selectedVariant
+        ].variantID
       );
     },
     removeFromCart() {
       this.$store.commit(
         "removeFromCart",
-        this.variants[this.selectedVariant].variantID
+        this.product.product[0].variants[
+          this.product.product[0].selectedVariant
+        ].variantID
       );
     },
     updateProduct(index) {
-      this.selectedVariant = index;
+      this.product.product[0].selectedVariant = index;
     }
   },
   computed: {
     title() {
       return (
-        this.variants[this.selectedVariant].variantColor + " " + this.product
+        this.product.product[0].variants[
+          this.product.product[0].selectedVariant
+        ].variantColor +
+        " " +
+        this.product.product[0].name
       );
     },
     image() {
-      return this.variants[this.selectedVariant].variantImage;
+      return this.product.product[0].variants[
+        this.product.product[0].selectedVariant
+      ].variantImage;
     },
     inStock() {
-      return this.variants[this.selectedVariant].variantQuantity;
+      return this.product.product[0].variants[
+        this.product.product[0].selectedVariant
+      ].variantQuantity;
     },
     onSale() {
-      return this.variants[this.selectedVariant].onSale;
+      return this.product.product[0].variants[
+        this.product.product[0].selectedVariant
+      ].onSale;
     },
     shipping() {
       if (this.premium) {
@@ -117,6 +152,7 @@ export default {
   width: 40px;
   height: 40px;
   margin-right: 5px;
+  border: 1px solid grey;
 }
 .image > img {
   height: 105px;

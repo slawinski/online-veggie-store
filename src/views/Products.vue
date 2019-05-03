@@ -5,7 +5,7 @@
       v-for="product in products"
       :key="product.name"
     >
-      <a :href="product.productID">
+      <a :href="'shop/' + product.productID">
         <div class="productsItem">
           <div class="image is-128x128">
             <img
@@ -33,7 +33,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get("/db.json");
-      this.products = response.data.products;
+      this.products = response.data;
     } catch (err) {
       console.error(err);
     }
