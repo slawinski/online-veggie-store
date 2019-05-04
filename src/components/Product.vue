@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div v-if="!isFetching" class="product">
     <div class="header">
       <div class="image is-128x128">
         <img
@@ -49,11 +49,13 @@
       </b-button>
       <p>Shipping: {{ shipping }}</p>
       <ul>
-        <li v-for="detail in details" :key="detail.index">{{ detail }}</li>
+        <li v-for="detail in product.product[0].details" :key="detail.index">
+          {{ detail }}
+        </li>
       </ul>
       <div>
         <h2>Reviews</h2>
-        <product-tabs :reviews="reviews"></product-tabs>
+        <product-tabs></product-tabs>
       </div>
     </div>
   </div>
@@ -70,10 +72,11 @@ export default {
   },
   data() {
     return {
-      product: {}
+      product: {},
+      isFetching: true
     };
   },
-  async created() {
+  async mounted() {
     try {
       const response = await axios.get("/db.json");
       const products = response.data;
@@ -81,8 +84,8 @@ export default {
       const product = products.filter(obj => {
         return obj.productID == id;
       });
-      // this.product = product;
       this.$set(this.product, "product", product);
+      this.isFetching = false;
     } catch (err) {
       console.error(err);
     }
