@@ -13,12 +13,12 @@
           :alt="product.product[0].altText"
         />
       </div>
-      <div class="title">
-        <h1>
+      <div>
+        <h1 class="title">
           {{ title }}
           <span v-show="onSale">On Sale!</span>
         </h1>
-        <h2>{{ product.product[0].description }}</h2>
+        <h2 class="subtitle">{{ product.product[0].description }}</h2>
       </div>
     </div>
     <div class="info">
@@ -48,14 +48,9 @@
         Remove from cart
       </b-button>
       <p>Shipping: {{ shipping }}</p>
-      <ul>
-        <li v-for="detail in product.product[0].details" :key="detail.index">
-          {{ detail }}
-        </li>
-      </ul>
       <div>
         <h2>Reviews</h2>
-        <product-tabs></product-tabs>
+        <product-tabs :details="product.product[0].details"></product-tabs>
       </div>
     </div>
   </div>
