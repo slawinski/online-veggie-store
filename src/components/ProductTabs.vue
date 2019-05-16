@@ -11,7 +11,7 @@
       <b-tab-item label="Reviews">
         <section>
           <button
-            class="button is-primary is-medium"
+            class="button is-primary"
             @click="isComponentModalActive = true"
           >
             New Review
@@ -22,11 +22,13 @@
         </section>
         <section>
           <p v-if="!reviews.length">There are no reviews yet.</p>
-          <div v-for="review in reviews" :key="review.index">
-            <h3 class="title is-5">{{ review.name }}</h3>
-            <p>{{ review.recommendation }}</p>
-            <p>{{ review.rating }}</p>
+          <div class="box" v-for="review in reviews" :key="review.index">
+            <p>
+              <strong>{{ review.name }}</strong> said:
+            </p>
             <p>{{ review.review }}</p>
+            <p>Do you recommend it? {{ review.recommendation }}!</p>
+            <p>Rating: {{ review.rating }}/5</p>
           </div>
         </section>
       </b-tab-item>

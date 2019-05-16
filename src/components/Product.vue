@@ -24,6 +24,7 @@
     <div class="info">
       <p v-if="inStock">In stock</p>
       <p v-else>Out of stock</p>
+      <p>Shipping: {{ shipping }}</p>
       <div class="color-box-wrapper">
         <div
           class="color-box"
@@ -47,9 +48,7 @@
       >
         Remove from cart
       </b-button>
-      <p>Shipping: {{ shipping }}</p>
       <div>
-        <h2>Reviews</h2>
         <product-tabs :details="product.product[0].details"></product-tabs>
       </div>
     </div>

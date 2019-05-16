@@ -13,7 +13,7 @@
               :alt="product.altText"
             />
           </div>
-          <p>{{ product.name }}</p>
+          <p class="title is-5">{{ product.name }}</p>
         </div></a
       >
     </div>
